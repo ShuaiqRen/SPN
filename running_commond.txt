@@ -1,0 +1,27 @@
+1. convert dataset to tfrecord 
+    CUDA_VISIBLE_DEVICES=0  python3 -m spn.data_conversion_scripts.convert_dataset_to_tfrecord 
+    
+2. test spn_net:
+    CUDA_VISIBLE_DEVICES=0  python3 -m spn.spn_net
+
+3. test spn_main
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_main --train_on='/data/SPN/spn_datasets/train' --eval_on='/data/SPN/spn_datasets/test' --checkpoint_x='./checkpoint_x' --checkpoint_y='./checkpoint_y' --checkpoint_x_best='./checkpoint_x_best' --checkpoint_y_best='./checkpoint_y_best' --plot_dir='./plot' --plot_dir_loss='./spn/plot_error'
+
+4. test spn_main evaluation
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_main --eval_on='/data/SPN/spn_datasets/test' --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./plot'
+
+5. test apply_spn
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.apply_spn --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./plot1'
+
+6. test image_to_input
+    CUDA_VISIBLE_DEVICES=0  python3 -m spn.image_to_input
+    
+7. test spn_ev
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_ev --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./spn/plot' --n=24 --length=79 --direction=1
+
+8. test spn_ev_for_point
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_ev_for_point --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./spn/plot' --n=24
+
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_ev_for_point --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./spn/plot' --n=5  --point_x=15 --point_y=15
+
+    CUDA_VISIBLE_DEVICES=1  python3 -m spn.spn_ev_for_point_with_occlusion --checkpoint_x='./checkpoint_x_best' --checkpoint_y='./checkpoint_y_best' --plot_dir='./spn/plot' --n=24  --point_x=30 --point_y=30  --point_occlusion_x=40 --point_occlusion_y=20
